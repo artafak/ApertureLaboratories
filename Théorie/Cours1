@@ -1,0 +1,166 @@
+🖥️ Cours : Virtualisation et Conteneurisation
+Objectifs du cours
+
+À la fin de cette séance, vous serez capables de :
+
+Expliquer les principes de la virtualisation et de la conteneurisation
+
+Décrire leur évolution historique
+
+Identifier leurs avantages et limites respectives
+
+Différencier les principaux types d’hyperviseurs et de conteneurs
+
+1️⃣ Introduction générale
+
+La virtualisation et la conteneurisation sont deux approches permettant d’isoler des environnements d’exécution afin de mieux exploiter les ressources d’un système informatique.
+
+👉 La virtualisation permet d’exécuter plusieurs systèmes d’exploitation complets sur une même machine physique.
+👉 La conteneurisation isole les applications, mais en partageant le même noyau du système d’exploitation hôte.
+
+2️⃣ Historique de la virtualisation
+Période	Événement clé
+Années 1960	Les premiers systèmes IBM (CP-40, CP-67) introduisent le concept de machine virtuelle.
+1974	Publication par Popek et Goldberg des conditions pour qu’une architecture soit virtualisable (efficacité, équivalence, contrôle des ressources).
+Années 2000	Retour en force avec la puissance accrue du matériel (Intel VT, AMD-V) et la nécessité de consolider les serveurs.
+Années 2010+	Virtualisation omniprésente dans les datacenters et le cloud computing.
+
+🧠 À retenir :
+
+La virtualisation vise à donner l’illusion à un système d’exploitation qu’il est seul à contrôler le matériel, alors qu’il partage réellement les ressources avec d’autres systèmes.
+
+3️⃣ Les principes de la virtualisation
+a) Définition
+
+La virtualisation consiste à exécuter plusieurs systèmes d’exploitation sur une même machine physique, grâce à une couche logicielle appelée hyperviseur.
+
+b) L’hyperviseur (ou VMM – Virtual Machine Monitor)
+
+Deux types principaux :
+
+Type I (bare-metal) : installé directement sur le matériel (ex. VMware ESXi, Microsoft Hyper-V, Xen)
+
+Type II (hosted) : installé au-dessus d’un système d’exploitation hôte (ex. VirtualBox, VMware Workstation)
+
+c) Types de virtualisation
+
+Virtualisation complète : chaque VM croit disposer de son propre matériel virtuel.
+
+Paravirtualisation : le système invité est conscient d’être virtualisé (meilleures performances).
+
+Virtualisation assistée par matériel : exploite les extensions CPU (Intel VT-x, AMD-V).
+
+Émulation : permet d’exécuter un OS prévu pour une autre architecture (ex. ARM → x86).
+
+4️⃣ Avantages et limites de la virtualisation
+✅ Avantages
+
+Meilleure utilisation des ressources : plusieurs serveurs logiques sur une seule machine physique.
+
+Isolation : un service défaillant n’impacte pas les autres.
+
+Facilité de migration : une VM peut être déplacée d’un hôte à un autre.
+
+Souplesse : exécuter plusieurs OS différents sur la même machine.
+
+Environnements de test : création rapide de “bacs à sable” pour le développement.
+
+❌ Inconvénients
+
+Surcharge de performances (overhead) due à la présence de plusieurs OS invités.
+
+Démarrage plus lent que les conteneurs.
+
+Gestion plus lourde en termes de stockage et de maintenance.
+
+Besoin de ressources plus importantes (RAM, CPU).
+
+5️⃣ Historique de la conteneurisation
+Période	Événement clé
+Années 2000	Linux introduit les cgroups et namespaces, permettant l’isolation de processus.
+2008	Apparition de LXC (Linux Containers).
+2013	Lancement de Docker, qui simplifie grandement l’usage des conteneurs.
+Années 2015+	Explosion de la conteneurisation avec Kubernetes, OpenShift, etc.
+
+🧠 À retenir :
+
+La conteneurisation ne virtualise pas le matériel, mais isole des applications au sein d’un même système d’exploitation.
+
+6️⃣ Les principes de la conteneurisation
+a) Définition
+
+La conteneurisation permet d’exécuter des applications isolées dans des environnements légers appelés conteneurs, partageant le même noyau du système hôte.
+
+b) Fonctionnement
+
+Chaque conteneur embarque :
+
+L’application
+
+Ses dépendances
+
+Sa configuration
+Mais pas le système d’exploitation complet : tous partagent le même noyau.
+
+c) Exemples d’outils
+
+Docker : le plus connu, centré sur la portabilité.
+
+Podman, LXC, Kubernetes (orchestration de conteneurs).
+
+7️⃣ Avantages et limites de la conteneurisation
+✅ Avantages
+
+Légèreté : pas de duplication du système d’exploitation → faible consommation.
+
+Performance : démarrage quasi instantané.
+
+Portabilité : même comportement entre dev, test et production.
+
+Facile à déployer : adapté au DevOps et aux microservices.
+
+Scalabilité : facile à reproduire et à distribuer sur plusieurs nœuds.
+
+❌ Inconvénients
+
+Isolation moins forte (partage du noyau → risque si faille kernel).
+
+Pas de virtualisation complète (on ne peut pas lancer Windows dans un conteneur Linux, par exemple).
+
+Persistance des données plus complexe (volumes).
+
+Gestion avancée nécessaire (orchestration, sécurité, réseau).
+
+8️⃣ Comparatif Virtualisation vs Conteneurisation
+Critère	Virtualisation	Conteneurisation
+Niveau d’isolation	Fort (OS complet séparé)	Moyen (noyau partagé)
+Poids	Lourd (plusieurs OS invités)	Léger (applications seulement)
+Performances	Plus lentes	Très rapides
+Démarrage	Long	Instantané
+Portabilité	Moyenne	Excellente
+Sécurité	Meilleure isolation	Risque si faille noyau
+Usage typique	Héberger plusieurs OS	Déployer des microservices
+Outils	VMware, Hyper-V, VirtualBox	Docker, LXC, Podman
+9️⃣ En synthèse
+Virtualisation	Conteneurisation
+➕ Isolement complet des systèmes	➕ Légèreté et rapidité
+➕ Idéal pour plusieurs OS	➕ Portabilité et scalabilité
+➖ Ressources plus lourdes	➖ Isolation plus faible
+➖ Démarrage lent	➖ Moins adapté aux environnements hétérogènes
+
+
+10️⃣ Conclusion
+
+La virtualisation et la conteneurisation ne s’opposent pas, elles se complètent.
+La virtualisation est idéale pour exécuter plusieurs OS sur un même serveur.
+La conteneurisation est parfaite pour exécuter plusieurs applications isolées sur le même OS.
+👉 Dans les environnements modernes (Cloud, DevOps), on les combine souvent :
+des machines virtuelles hébergent des conteneurs Docker orchestrés par Kubernetes.
+
+
+
+💡 Exercice de réflexion
+
+Citez deux différences entre un conteneur et une machine virtuelle.
+Donnez un cas d’usage où la virtualisation reste préférable à la conteneurisation.
+Pourquoi Docker est-il si populaire dans les environnements DevOps ?
